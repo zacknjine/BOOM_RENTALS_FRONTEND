@@ -11,7 +11,7 @@ const AdminMaintenanceManagement = () => {
   }, []);
 
   const updateRequestStatus = (id, status) => {
-    axios.put(http://localhost:8000/admin/maintenance/${id}, { status })
+    axios.put(`http://localhost:8000/admin/maintenance/${id}, { status }`)
       .then(() => {
         setRequests(requests.map(req => req.id === id ? { ...req, status } : req));
       })

@@ -15,7 +15,7 @@ const MaintenanceRequestList = () => {
   const fetchRequests = async () => {
     try {
       const response = await axios.get(url, {
-        headers: { Authorization: Bearer ${token} }
+        headers: { Authorization: `Bearer ${token}` }
       });
       setRequests(response.data);
     } catch (error) {
@@ -30,7 +30,7 @@ const MaintenanceRequestList = () => {
   const createRequest = async () => {
     try {
       const response = await axios.post(url, formData, {
-        headers: { Authorization: Bearer ${token} }
+        headers: { Authorization: `Bearer ${token}` }
       });
       setRequests([...requests, response.data]);
       setFormData({ content: '', urgency: 'low' });
