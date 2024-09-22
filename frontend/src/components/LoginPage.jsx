@@ -24,7 +24,7 @@ const LoginPage = () => {
         const data = await response.json();
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('userId', data.userId); // Store the user ID
-        navigate(/${data.role}-dashboard); // Redirect based on role
+        navigate(`/${data.role}-dashboard`); // Redirect based on role
       } else {
         console.error('Login failed');
       }
@@ -36,7 +36,7 @@ const LoginPage = () => {
   return (
     <div 
       className="flex items-center justify-center min-h-screen bg-cover bg-center" 
-      style={{ backgroundImage: url(${backgroundImage}) }}
+      style={{ backgroundImage: url(`${backgroundImage}`) }}
     >
       <div className= "bg-white bg-opacity-70 p-8 rounded-lg shadow-lg w-96">
         <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Login</h1>
