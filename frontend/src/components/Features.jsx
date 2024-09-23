@@ -3,7 +3,7 @@ import image from "./Images/features.jpeg";
 
 const Features = () => {
   return (
-    <div className= "bg-gray-200 py-16 px-4 " style={{ backgroundImage: url(${image}) }}>
+    <div className= "bg-gray-200 py-16 px-4 " style={{ backgroundImage: `url(${image})` }}>
       <h2 className= "text-center text-4xl font-bold mb-12">Renting And Management Made Easy</h2>
       <p className= "text-center text-xl mb-12">Why Us?</p>
 
