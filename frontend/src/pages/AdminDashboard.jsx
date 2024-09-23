@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Routes, Route, Navigate } from 'react-router-dom';
 import AdminTenantManagement from '../components/AdminTenantManagement';
 import AdminFinancialSummary from '../components/AdminFinancialSummary';
-import AdminMessageList from '../components/AdminMessageList';
+import AdminMessageList from '../components/AdminMessages';
 import PropertyManagement from '../components/PropertyManagement';
 import ViewPayments from '../components/ViewPayments';
 import PrivateRoute from '../components/PrivateRoute';
