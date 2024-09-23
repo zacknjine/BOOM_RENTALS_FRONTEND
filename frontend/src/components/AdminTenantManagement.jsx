@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const AdminTenantManagement = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('tenant'); // Default role
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("tenant");
   const [users, setUsers] = useState([]);
   const [userIdToDelete, setUserIdToDelete] = useState(null);
   const [userIdToUpdate, setUserIdToUpdate] = useState(null);
-  const [updatedUsername, setUpdatedUsername] = useState('');
-  const [updatedEmail, setUpdatedEmail] = useState('');
-  const [updatedRole, setUpdatedRole] = useState('tenant'); // Added for updating role
+  const [updatedUsername, setUpdatedUsername] = useState("");
+  const [updatedEmail, setUpdatedEmail] = useState("");
+  const [updatedRole, setUpdatedRole] = useState("tenant");
 
-  const token = localStorage.getItem('token'); // Assuming you store JWT in local storage
+  const token = localStorage.getItem("token");
 
-  // Fetch users on component mount
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:8000/admin/users', {
+      const response = await fetch("http://localhost:8000/admin/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -31,79 +30,88 @@ const AdminTenantManagement = () => {
         const data = await response.json();
         setUsers(data);
       } else {
-        console.error('Failed to fetch users');
+        console.error("Failed to fetch users");
       }
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error("Error fetching users:", error);
     }
   };
 
   const handleRegisterUser = async () => {
     try {
-      const response = await fetch('http://localhost:8000/admin/register-user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ username, email, password, role }),
-      });
+      const response = await fetch(
+        "http://localhost:8000/admin/register-user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ username, email, password, role }),
+        }
+      );
 
       if (response.ok) {
-        alert('User registered successfully');
-        fetchUsers(); // Refresh user list
+        alert("User registered successfully");
+        fetchUsers();
       } else {
-        console.error('Failed to register user');
+        console.error("Failed to register user");
       }
     } catch (error) {
-      console.error('Error registering user:', error);
+      console.error("Error registering user:", error);
     }
   };
 
   const handleDeleteUser = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/admin/delete-user/${userIdToDelete}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:8000/admin/delete-user/${userIdToDelete}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
-        alert('User deleted successfully');
-        fetchUsers(); // Refresh user list
+        alert("User deleted successfully");
+        fetchUsers();
       } else {
-        console.error('Failed to delete user');
+        console.error("Failed to delete user");
       }
     } catch (error) {
-      console.error('Error deleting user:', error);
+      console.error("Error deleting user:", error);
     }
   };
 
   const handleUpdateUser = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/admin/update-user/${userIdToUpdate}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          username: updatedUsername,
-          email: updatedEmail,
-          password: '', // Leave blank if not updating
-          role: updatedRole || '', // Include selected role or leave blank
-        }),
-      });
+      const response = await fetch(
+        `http://localhost:8000/admin/update-user/${userIdToUpdate}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            username: updatedUsername,
+            email: updatedEmail,
+            password: "",
+            role: updatedRole || "",
+          }),
+        }
+      );
 
       if (response.ok) {
-        alert('User updated successfully');
-        fetchUsers(); // Refresh user list
+        alert("User updated successfully");
+        fetchUsers();
       } else {
-        console.error('Failed to update user');
+        console.error("Failed to update user");
       }
     } catch (error) {
-      console.error('Error updating user:', error);
+      console.error("Error updating user:", error);
     }
   };
 
@@ -111,7 +119,6 @@ const AdminTenantManagement = () => {
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-4">Admin Tenant Management</h1>
 
-      {/* Register User Form */}
       <div>
         <h2 className="text-xl mb-2">Register User</h2>
         <input
@@ -135,21 +142,30 @@ const AdminTenantManagement = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="border p-2 mb-2"
         />
-        <select value={role} onChange={(e) => setRole(e.target.value)} className="border p-2 mb-2">
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="border p-2 mb-2"
+        >
           <option value="tenant">Tenant</option>
           <option value="admin">Admin</option>
         </select>
-        <button onClick={handleRegisterUser} className="bg-blue-500 text-white p-2">
+        <button
+          onClick={handleRegisterUser}
+          className="bg-blue-500 text-white p-2"
+        >
           Register User
         </button>
       </div>
 
-      {/* List Users */}
       <div className="mt-6">
         <h2 className="text-xl mb-2">Users List</h2>
         <ul>
           {users.map((user) => (
-            <li key={user.id} className="flex justify-between items-center border-b py-2">
+            <li
+              key={user.id}
+              className="flex justify-between items-center border-b py-2"
+            >
               {user.username} ({user.email}) - Role: {user.role}
               <div>
                 <button
@@ -166,7 +182,7 @@ const AdminTenantManagement = () => {
                     setUserIdToUpdate(user.id);
                     setUpdatedUsername(user.username);
                     setUpdatedEmail(user.email);
-                    setUpdatedRole(user.role); // Set current role for updating
+                    setUpdatedRole(user.role);
                   }}
                   className="bg-green-500 text-white p-2"
                 >
@@ -178,7 +194,6 @@ const AdminTenantManagement = () => {
         </ul>
       </div>
 
-      {/* Update User Form */}
       {userIdToUpdate !== null && (
         <div className="mt-6">
           <h2 className="text-xl mb-2">Update User</h2>
@@ -196,11 +211,18 @@ const AdminTenantManagement = () => {
             onChange={(e) => setUpdatedEmail(e.target.value)}
             className="border p-2 mb-2"
           />
-          <select value={updatedRole} onChange={(e) => setUpdatedRole(e.target.value)} className="border p-2 mb-2">
+          <select
+            value={updatedRole}
+            onChange={(e) => setUpdatedRole(e.target.value)}
+            className="border p-2 mb-2"
+          >
             <option value="tenant">Tenant</option>
             <option value="admin">Admin</option>
           </select>
-          <button onClick={handleUpdateUser} className="bg-green-500 text-white p-2">
+          <button
+            onClick={handleUpdateUser}
+            className="bg-green-500 text-white p-2"
+          >
             Update User
           </button>
         </div>

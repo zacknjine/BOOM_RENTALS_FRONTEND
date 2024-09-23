@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const PropertyManagement = () => {
-  const url = 'http://localhost:8000/admin/properties/';
+  const url = "http://localhost:8000/admin/properties/";
   const [properties, setProperties] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    location: '',
+    name: "",
+    location: "",
     number_of_houses: 1,
-    description: ''
+    description: "",
   });
 
-  // Fetch all properties on component mount
   useEffect(() => {
     fetchProperties();
   }, []);
 
   const fetchProperties = async () => {
-    const token = localStorage.getItem('token'); // Get the token from localStorage
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.get(url, {
-        headers: { Authorization:` Bearer ${token}` }
+        headers: { Authorization: ` Bearer ${token}` },
       });
       setProperties(response.data);
     } catch (error) {
-      console.error('Error fetching properties:', error);
+      console.error("Error fetching properties:", error);
     }
   };
 
@@ -33,20 +32,20 @@ const PropertyManagement = () => {
   };
 
   const addProperty = async () => {
-    const token = localStorage.getItem('token'); // Get the token from localStorage
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(url, formData, {
-        headers: { Authorization: `Bearer ${token} `}
+        headers: { Authorization: `Bearer ${token} ` },
       });
       setProperties([...properties, response.data]);
       setFormData({
-        name: '',
-        location: '',
+        name: "",
+        location: "",
         number_of_houses: 1,
-        description: ''
+        description: "",
       });
     } catch (error) {
-      console.error('Error adding property:', error);
+      console.error("Error adding property:", error);
     }
   };
 
@@ -96,7 +95,10 @@ const PropertyManagement = () => {
           required
           className="border p-2 w-full mt-2 rounded-md"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded mt-2">
+        <button
+          type="submit"
+          className="bg-blue-500 text-white p-2 rounded mt-2"
+        >
           Add Property
         </button>
       </form>
@@ -105,7 +107,9 @@ const PropertyManagement = () => {
       <ul>
         {properties.map((property) => (
           <li key={property.id} className="p-4 mb-4 border rounded">
-            <h3>{property.name} ({property.location})</h3>
+            <h3>
+              {property.name} ({property.location})
+            </h3>
             <p>Number of Houses: {property.number_of_houses}</p>
             <p>Description: {property.description}</p>
           </li>

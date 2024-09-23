@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const FinancialManagement = () => {
   const [expenses, setExpenses] = useState([]);
   const [financialReports, setFinancialReports] = useState([]);
   const [expenseFormData, setExpenseFormData] = useState({
-    property_id: '',
-    expense_type: '',
-    amount: '',
-    date_incurred: '',
-    description: '',
+    property_id: "",
+    expense_type: "",
+    amount: "",
+    date_incurred: "",
+    description: "",
   });
   const [reportFormData, setReportFormData] = useState({
-    property_id: '',
-    report_type_id: '',
-    total_income: '',
-    total_expenses: '',
+    property_id: "",
+    report_type_id: "",
+    total_income: "",
+    total_expenses: "",
   });
-  
-  // Fetch expenses and financial reports on initial load
+
   useEffect(() => {
     fetchExpenses();
     fetchFinancialReports();
@@ -26,19 +25,21 @@ const FinancialManagement = () => {
 
   const fetchExpenses = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/expenses');
+      const response = await axios.get("http://localhost:8000/expenses");
       setExpenses(response.data);
     } catch (error) {
-      console.error('Error fetching expenses:', error);
+      console.error("Error fetching expenses:", error);
     }
   };
 
   const fetchFinancialReports = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/financial-reports');
+      const response = await axios.get(
+        "http://localhost:8000/financial-reports"
+      );
       setFinancialReports(response.data);
     } catch (error) {
-      console.error('Error fetching financial reports:', error);
+      console.error("Error fetching financial reports:", error);
     }
   };
 
@@ -58,32 +59,38 @@ const FinancialManagement = () => {
 
   const createExpense = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/expenses', expenseFormData);
+      const response = await axios.post(
+        "http://localhost:8000/expenses",
+        expenseFormData
+      );
       setExpenses([...expenses, response.data]);
       setExpenseFormData({
-        property_id: '',
-        expense_type: '',
-        amount: '',
-        date_incurred: '',
-        description: '',
+        property_id: "",
+        expense_type: "",
+        amount: "",
+        date_incurred: "",
+        description: "",
       });
     } catch (error) {
-      console.error('Error creating expense:', error);
+      console.error("Error creating expense:", error);
     }
   };
 
   const createFinancialReport = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/financial-reports', reportFormData);
+      const response = await axios.post(
+        "http://localhost:8000/financial-reports",
+        reportFormData
+      );
       setFinancialReports([...financialReports, response.data]);
       setReportFormData({
-        property_id: '',
-        report_type_id: '',
-        total_income: '',
-        total_expenses: '',
+        property_id: "",
+        report_type_id: "",
+        total_income: "",
+        total_expenses: "",
       });
     } catch (error) {
-      console.error('Error creating financial report:', error);
+      console.error("Error creating financial report:", error);
     }
   };
 
@@ -100,7 +107,7 @@ const FinancialManagement = () => {
   return (
     <div>
       <h1>Financial Management</h1>
-      
+
       <h2>Create Expense</h2>
       <form onSubmit={handleSubmitExpense}>
         <input
@@ -184,7 +191,7 @@ const FinancialManagement = () => {
 
       <h2>Expenses</h2>
       <ul>
-        {expenses.map(expense => (
+        {expenses.map((expense) => (
           <li key={expense.id}>
             {expense.description} - {expense.amount} - {expense.date_incurred}
           </li>
@@ -193,9 +200,10 @@ const FinancialManagement = () => {
 
       <h2>Financial Reports</h2>
       <ul>
-        {financialReports.map(report => (
+        {financialReports.map((report) => (
           <li key={report.id}>
-            Report ID: {report.id}, Total Income: {report.total_income}, Total Expenses: {report.total_expenses}
+            Report ID: {report.id}, Total Income: {report.total_income}, Total
+            Expenses: {report.total_expenses}
           </li>
         ))}
       </ul>
